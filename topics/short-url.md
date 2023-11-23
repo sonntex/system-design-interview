@@ -24,12 +24,13 @@ http://tinyurl.com
 
 ### storage estimates
 * 5 years or 60 months
-* 10^3 = 1KB per record
-* 10^9 x 60 x 10^3 = 60 x 10^12 = 60TB
+* 1KB per record (average)
+* 10^9 x 60 x 1KB = 60TB
 
 ### bandwidth estimates
 * w: 1KB x 300 qps = 300KB/s
-* r: 300MB/s
+* r: 1KB x 300K qps = 300MB/s
+* ingress and egress are not big!
 
 ### memory estimates
 * 80/20 rule (20% of urls generate 80% of traffic)
@@ -50,8 +51,8 @@ http://tinyurl.com
 * http 302 redirect or http 404 not found
 
 ### database
-* urls: alias (hash pk), url, created, expires_at
-* users: id, email, password_hash, api_key
+* data: alias (hash pk), url, created, expires_at, user
+* user: id, email, password_hash, api_key
 * store billions of records and even more
 * small record
 * no relations between entities
@@ -67,9 +68,8 @@ http://tinyurl.com
 * !!! url must be escaped
 * write to master, read from replicas
 
-### approach 2
-* generate random 6-character string and check collisions (can do this offline)
-* split key ranges among different servers, introduce two tables (used and unused aliases)
+### approach 2 (kgs)
+* pre-generate keys
 * 68 x 10^9 x 6 = 412GB
 * write to master, read from replicas
 
