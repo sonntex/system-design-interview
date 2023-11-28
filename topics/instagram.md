@@ -12,7 +12,7 @@
 * low latency (200ms for news feed generation)
 
 ### estimates
-* 1 billion of users overall and 1 million daily active users
+* 1 billion of users overall and 1 million of daily active users
 * 2 million photos every day
 * 200KB per photo
 * 100 followers
